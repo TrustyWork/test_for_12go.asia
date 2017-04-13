@@ -1,0 +1,151 @@
+<!-- <? include __DIR__.'/App.php';?>-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Test for https://12go.asia/ru</title>
+	<style>
+		/*===> Helpers =*/
+		.flex {
+			width: 100%;
+			display: flex;
+		}
+
+		#config > * {
+			width: 50%;
+		}
+
+		#config div:nth-child( 2) {
+			max-height: 50vh;
+			overflow: scroll;
+		}
+
+		/*===> Style =*/
+		#render {
+			width: 100%;
+			display: flex;
+		}
+		#render div:nth-child( 1) {
+			width: 66%;
+		}
+		#render div:nth-child( 1) canvas{
+			min-width: 50%;
+			max-width: 100%;
+		}
+		#render div:nth-child( 2) {
+			width: 34%;
+		}
+	</style>
+</head>
+<body>
+	<div id="config" class="flex">
+		<form name="config">
+			<fieldset>
+				<legend>Количество тестов</legend>
+
+				<label>
+					min
+					<input name="testCasesCount.min" required type="text">
+				</label>
+				<label>
+					max
+					<input name="testCasesCount.max" required type="text">
+				</label>
+			</fieldset>
+
+			<fieldset>
+				<legend>Количество направлений в тесте</legend>
+
+				<label>
+					min
+					<input name="directionsCount.min" required pattern="\d+" type="text">
+				</label>
+				<label>
+					max
+					<input name="directionsCount.max" required pattern="\d+" type="text">
+				</label>
+			</fieldset>
+
+			<fieldset>
+				<legend>Количество инструкций в направлении</legend>
+
+				<label>
+					min
+					<input name="instructionsCount.min" required pattern="\d+" type="text">
+				</label>
+				<label>
+					max
+					<input name="instructionsCount.max" required pattern="\d+" type="text">
+				</label>
+			</fieldset>
+
+			<fieldset>
+				<legend>Максимальные длина инструкции walk</legend>
+
+				<label>
+					min
+					<input name="walkLenght.min" required pattern="\d+" type="text">
+				</label>
+				<label>
+					max
+					<input name="walkLenght.max" required pattern="\d+" type="text">
+				</label>
+			</fieldset>
+
+			<fieldset>
+				<legend>Максимальные стартовые координаты</legend>
+
+				<label>
+					max
+					<input name="startCoordinateMax" required pattern="\d+" type="text">
+				</label>
+			</fieldset>
+
+			<br>
+			<button type="submit">
+				<b>Генерировать</b>
+			</button>
+
+			<button type="reset">
+				<b>сброс</b>
+			</button>
+		</form>
+		<div>
+			<h2>Буфер вывода:</h2>
+			<pre data-name="output"></pre>
+		</div>
+	</div>
+
+	<br>
+	<section id="render" class="flex">
+		<div>
+			<canvas data-name="area"></canvas>
+		</div>
+		<div>
+			<form name="testcase">
+			<h2>Тест кейс №:</h2>
+				<input name="no" type="text">
+				<button type="submit">
+					ok
+				</button>
+			</form>
+
+			<ul>
+				<li>Синие круги - конечные точки</li>
+				<li>Зеленый круг - средняя конечная точка</li>
+				<li>Синий круг с белым кольцом - конечная точка наиболее близкая к средней конечной точке</li>
+				<li>Толшина линии указывает длину маршрута( толстый - короткий)</li>
+			</ul>
+			P.S.
+			Я бы рекомендовал в реальном проекте тут применить групировку близких маршрутов
+			и понизить вес маршрутов с большим отклонением при расчете средней конечной точки.
+		</div>
+	</section>
+
+	<script src="./util.js"></script>
+	<script src="./Config.js"></script>
+	<script src="./Render.js"></script>
+	<script src="./Input.js"></script>
+	<script src="./App.js"></script>
+</body>
+</html>
